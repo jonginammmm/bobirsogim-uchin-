@@ -1,0 +1,2608 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<title>NUR — Qalbingizga nur</title>
+
+<meta name="theme-color" content="#07100d">
+<meta name="description" content="Qur'on, zikr, tasbeh, duo, namoz vaqtlari, qibla va islomiy bilimlar">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+    --bg:#050907;
+    --card:rgba(255,255,255,.075);
+    --card2:rgba(255,255,255,.11);
+    --border:rgba(255,255,255,.13);
+    --text:#f5fff9;
+    --muted:#a9b9b1;
+    --green:#42d392;
+    --green2:#1fa971;
+    --gold:#e6c477;
+    --danger:#ff7272;
+    --shadow:0 20px 70px rgba(0,0,0,.38);
+}
+
+body.light{
+    --bg:#eef5f0;
+    --card:rgba(255,255,255,.72);
+    --card2:rgba(255,255,255,.9);
+    --border:rgba(20,70,45,.12);
+    --text:#10251b;
+    --muted:#60736a;
+    --shadow:0 20px 60px rgba(30,60,45,.12);
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+.bg{
+    position:fixed;
+    inset:0;
+    z-index:-5;
+    background:
+        linear-gradient(180deg,rgba(2,8,5,.62),rgba(3,9,6,.92)),
+        url("https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=2200&q=90")
+        center/cover no-repeat;
+}
+
+body.light .bg{
+    background:
+        linear-gradient(180deg,rgba(237,248,241,.78),rgba(238,245,240,.96)),
+        url("https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=2200&q=90")
+        center/cover no-repeat;
+}
+
+.glow{
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:rgba(50,210,140,.09);
+    filter:blur(90px);
+    z-index:-4;
+    pointer-events:none;
+}
+
+.glow.one{top:-180px;left:-180px}
+.glow.two{bottom:-220px;right:-150px;background:rgba(230,196,119,.08)}
+
+button{
+    border:0;
+    cursor:pointer;
+    color:inherit;
+    font:inherit;
+}
+
+.app{
+    width:min(1250px,100%);
+    margin:auto;
+    padding:18px 18px 100px;
+}
+
+/* HEADER */
+
+.topbar{
+    position:sticky;
+    top:12px;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:13px 15px;
+    margin-bottom:18px;
+    border:1px solid var(--border);
+    background:rgba(10,20,15,.62);
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+    border-radius:24px;
+    box-shadow:var(--shadow);
+}
+
+body.light .topbar{
+    background:rgba(255,255,255,.72);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logoIcon{
+    width:42px;
+    height:42px;
+    display:grid;
+    place-items:center;
+    border-radius:14px;
+    background:linear-gradient(135deg,rgba(66,211,146,.28),rgba(230,196,119,.18));
+    border:1px solid var(--border);
+    font-size:23px;
+}
+
+.logoText strong{
+    display:block;
+    font-size:17px;
+    letter-spacing:3px;
+}
+
+.logoText span{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:1px;
+}
+
+.topActions{
+    display:flex;
+    gap:8px;
+}
+
+.iconBtn{
+    width:42px;
+    height:42px;
+    border-radius:14px;
+    background:var(--card);
+    border:1px solid var(--border);
+    display:grid;
+    place-items:center;
+    font-size:19px;
+    transition:.2s;
+}
+
+.iconBtn:active{
+    transform:scale(.92);
+}
+
+/* HERO */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    border-radius:32px;
+    padding:35px 28px;
+    border:1px solid var(--border);
+    background:
+        radial-gradient(circle at 90% 20%,rgba(66,211,146,.17),transparent 35%),
+        radial-gradient(circle at 15% 90%,rgba(230,196,119,.12),transparent 30%),
+        var(--card);
+    backdrop-filter:blur(28px);
+    -webkit-backdrop-filter:blur(28px);
+    box-shadow:var(--shadow);
+}
+
+.hero:before{
+    content:"";
+    position:absolute;
+    width:240px;
+    height:240px;
+    border:1px solid rgba(230,196,119,.12);
+    border-radius:50%;
+    right:-100px;
+    top:-110px;
+}
+
+.arabic{
+    direction:rtl;
+    text-align:center;
+    font-family:"Amiri","Times New Roman",serif;
+    font-size:32px;
+    line-height:1.8;
+    color:var(--gold);
+    margin-bottom:10px;
+}
+
+.hero h1{
+    text-align:center;
+    font-size:clamp(30px,6vw,52px);
+    letter-spacing:-1px;
+}
+
+.hero p{
+    text-align:center;
+    color:var(--muted);
+    margin:9px auto 22px;
+    max-width:650px;
+    line-height:1.7;
+}
+
+.heroActions{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.primary{
+    padding:13px 20px;
+    border-radius:16px;
+    background:linear-gradient(135deg,var(--green),var(--green2));
+    color:#04130c;
+    font-weight:800;
+    box-shadow:0 12px 30px rgba(66,211,146,.18);
+}
+
+.secondary{
+    padding:13px 20px;
+    border-radius:16px;
+    background:var(--card2);
+    border:1px solid var(--border);
+    color:var(--text);
+}
+
+/* SECTION */
+
+.section{
+    margin-top:28px;
+}
+
+.sectionHead{
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:13px;
+}
+
+.sectionHead h2{
+    font-size:22px;
+}
+
+.sectionHead p{
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* FEATURE GRID */
+
+.featureGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.feature{
+    min-height:145px;
+    text-align:left;
+    padding:18px;
+    border-radius:24px;
+    background:var(--card);
+    border:1px solid var(--border);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    transition:.25s;
+    box-shadow:0 10px 40px rgba(0,0,0,.1);
+}
+
+.feature:hover{
+    transform:translateY(-4px);
+    background:var(--card2);
+}
+
+.feature:active{
+    transform:scale(.98);
+}
+
+.feature .emoji{
+    font-size:30px;
+    margin-bottom:16px;
+}
+
+.feature strong{
+    display:block;
+    font-size:16px;
+}
+
+.feature span{
+    display:block;
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
+    line-height:1.5;
+}
+
+/* DAILY */
+
+.dailyGrid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.daily{
+    padding:21px;
+    min-height:180px;
+    border-radius:25px;
+    background:var(--card);
+    border:1px solid var(--border);
+    backdrop-filter:blur(20px);
+}
+
+.daily .tag{
+    color:var(--green);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+.daily h3{
+    margin:10px 0;
+}
+
+.daily .arabicSmall{
+    direction:rtl;
+    text-align:right;
+    font-family:"Amiri","Times New Roman",serif;
+    font-size:22px;
+    line-height:1.8;
+}
+
+.daily p{
+    color:var(--muted);
+    line-height:1.6;
+    font-size:13px;
+}
+
+/* PRAYER */
+
+.prayerBox{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+}
+
+.prayer{
+    padding:17px 12px;
+    text-align:center;
+    border-radius:20px;
+    background:var(--card);
+    border:1px solid var(--border);
+}
+
+.prayer span{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+}
+
+.prayer strong{
+    display:block;
+    margin-top:8px;
+    font-size:20px;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    background:rgba(0,0,0,.65);
+    backdrop-filter:blur(8px);
+}
+
+.modal.show{
+    display:flex;
+}
+
+.sheet{
+    width:min(1050px,100%);
+    max-height:92vh;
+    overflow:auto;
+    border-radius:30px 30px 0 0;
+    border:1px solid var(--border);
+    background:rgba(9,17,13,.96);
+    backdrop-filter:blur(30px);
+    box-shadow:0 -20px 80px rgba(0,0,0,.4);
+    padding:20px;
+    animation:up .25s ease;
+}
+
+body.light .sheet{
+    background:rgba(245,250,247,.97);
+}
+
+@keyframes up{
+    from{transform:translateY(40px);opacity:0}
+    to{transform:translateY(0);opacity:1}
+}
+
+.sheetTop{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+}
+
+.sheetTop h2{
+    font-size:23px;
+}
+
+.close{
+    width:42px;
+    height:42px;
+    border-radius:14px;
+    background:var(--card);
+    border:1px solid var(--border);
+}
+
+/* SEARCH */
+
+.search{
+    width:100%;
+    padding:15px 17px;
+    border-radius:17px;
+    border:1px solid var(--border);
+    outline:none;
+    background:var(--card);
+    color:var(--text);
+    font-size:15px;
+    margin-bottom:15px;
+}
+
+.search::placeholder{
+    color:var(--muted);
+}
+
+/* SURAH LIST */
+
+.surahGrid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:9px;
+}
+
+.surahItem{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px;
+    border-radius:18px;
+    background:var(--card);
+    border:1px solid var(--border);
+    text-align:left;
+    transition:.2s;
+}
+
+.surahItem:active{
+    transform:scale(.98);
+}
+
+.surahNum{
+    min-width:38px;
+    height:38px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:rgba(66,211,146,.1);
+    color:var(--green);
+    font-weight:800;
+}
+
+.surahInfo{
+    flex:1;
+    min-width:0;
+}
+
+.surahInfo strong{
+    display:block;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.surahInfo span{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.surahArabic{
+    direction:rtl;
+    font-family:"Amiri","Times New Roman",serif;
+    color:var(--gold);
+    font-size:19px;
+}
+
+/* QURAN READER */
+
+.reader{
+    max-width:900px;
+    margin:auto;
+}
+
+.readerHead{
+    text-align:center;
+    padding:10px 0 22px;
+}
+
+.readerHead .arabicTitle{
+    direction:rtl;
+    font-family:"Amiri","Times New Roman",serif;
+    color:var(--gold);
+    font-size:42px;
+}
+
+.readerHead h2{
+    font-size:27px;
+}
+
+.readerHead p{
+    color:var(--muted);
+    margin-top:5px;
+}
+
+.readerTools{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:18px;
+}
+
+.ayah{
+    position:relative;
+    padding:23px 20px;
+    margin-bottom:11px;
+    border-radius:23px;
+    background:var(--card);
+    border:1px solid var(--border);
+}
+
+.ayahNumber{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    color:var(--green);
+    background:rgba(66,211,146,.08);
+    font-size:11px;
+    margin-bottom:13px;
+}
+
+.ayahArabic{
+    direction:rtl;
+    text-align:right;
+    font-family:"Amiri","Times New Roman",serif;
+    font-size:27px;
+    line-height:2.05;
+    color:#fff;
+}
+
+body.light .ayahArabic{
+    color:#16271e;
+}
+
+.ayahTranslation{
+    margin-top:15px;
+    color:var(--muted);
+    line-height:1.8;
+    font-size:14px;
+}
+
+.ayahActions{
+    display:flex;
+    gap:7px;
+    margin-top:15px;
+}
+
+.smallBtn{
+    padding:9px 12px;
+    border-radius:12px;
+    background:var(--card2);
+    border:1px solid var(--border);
+    font-size:12px;
+}
+
+/* ZIKR */
+
+.categoryGrid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.category{
+    padding:18px;
+    border-radius:20px;
+    background:var(--card);
+    border:1px solid var(--border);
+    text-align:left;
+}
+
+.category .big{
+    font-size:27px;
+}
+
+.category strong{
+    display:block;
+    margin-top:12px;
+}
+
+.category span{
+    display:block;
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
+}
+
+/* TASBIH */
+
+.tasbih{
+    text-align:center;
+    max-width:600px;
+    margin:auto;
+}
+
+.counterCircle{
+    width:230px;
+    height:230px;
+    border-radius:50%;
+    margin:20px auto;
+    display:grid;
+    place-items:center;
+    background:
+        radial-gradient(circle,rgba(66,211,146,.15),transparent 65%),
+        var(--card);
+    border:1px solid rgba(66,211,146,.25);
+    box-shadow:0 0 80px rgba(66,211,146,.08);
+}
+
+.counterCircle strong{
+    font-size:55px;
+}
+
+.tasbihButtons{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+.tasbihMain{
+    width:170px;
+    height:60px;
+    border-radius:20px;
+    background:linear-gradient(135deg,var(--green),var(--green2));
+    color:#03150d;
+    font-weight:900;
+}
+
+/* DUA */
+
+.duaCard{
+    padding:22px;
+    border-radius:23px;
+    background:var(--card);
+    border:1px solid var(--border);
+    margin-bottom:10px;
+}
+
+.duaCard h3{
+    margin-bottom:12px;
+}
+
+.duaArabic{
+    direction:rtl;
+    text-align:right;
+    font-family:"Amiri","Times New Roman",serif;
+    color:var(--gold);
+    font-size:24px;
+    line-height:1.9;
+}
+
+.duaMeaning{
+    color:var(--muted);
+    line-height:1.7;
+    margin-top:12px;
+}
+
+/* QIBLA */
+
+.qibla{
+    text-align:center;
+    padding:20px;
+}
+
+.compass{
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    margin:25px auto;
+    position:relative;
+    display:grid;
+    place-items:center;
+    border:2px solid rgba(230,196,119,.3);
+    background:
+        radial-gradient(circle,rgba(66,211,146,.12),transparent 65%),
+        var(--card);
+}
+
+.compass:before{
+    content:"N";
+    position:absolute;
+    top:14px;
+    font-weight:900;
+    color:var(--green);
+}
+
+.needle{
+    width:5px;
+    height:105px;
+    background:linear-gradient(to top,var(--green),var(--gold));
+    border-radius:10px;
+    transform-origin:center bottom;
+    transform:rotate(0deg);
+    position:absolute;
+    bottom:50%;
+    transition:1s;
+}
+
+/* PROFILE */
+
+.profileGrid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.stat{
+    padding:20px;
+    text-align:center;
+    border-radius:20px;
+    background:var(--card);
+    border:1px solid var(--border);
+}
+
+.stat strong{
+    display:block;
+    font-size:28px;
+    color:var(--green);
+}
+
+.stat span{
+    display:block;
+    color:var(--muted);
+    margin-top:4px;
+    font-size:12px;
+}
+
+/* BOTTOM NAV */
+
+.bottomNav{
+    position:fixed;
+    left:50%;
+    bottom:12px;
+    transform:translateX(-50%);
+    z-index:80;
+    width:min(600px,calc(100% - 24px));
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    padding:7px;
+    border-radius:23px;
+    background:rgba(8,17,12,.82);
+    border:1px solid var(--border);
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+    box-shadow:0 15px 60px rgba(0,0,0,.35);
+}
+
+body.light .bottomNav{
+    background:rgba(255,255,255,.83);
+}
+
+.navItem{
+    padding:8px 4px;
+    border-radius:16px;
+    background:transparent;
+    font-size:10px;
+    color:var(--muted);
+}
+
+.navItem.active{
+    background:rgba(66,211,146,.11);
+    color:var(--green);
+}
+
+.navItem div{
+    font-size:20px;
+    margin-bottom:2px;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:95px;
+    transform:translate(-50%,20px);
+    opacity:0;
+    pointer-events:none;
+    z-index:200;
+    padding:12px 17px;
+    border-radius:15px;
+    background:rgba(15,25,19,.94);
+    border:1px solid var(--border);
+    color:#fff;
+    font-size:13px;
+    transition:.25s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* LOADER */
+
+.loader{
+    padding:35px;
+    text-align:center;
+    color:var(--muted);
+}
+
+.spinner{
+    width:34px;
+    height:34px;
+    border:3px solid rgba(255,255,255,.1);
+    border-top-color:var(--green);
+    border-radius:50%;
+    margin:0 auto 12px;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+    .featureGrid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .dailyGrid{
+        grid-template-columns:1fr;
+    }
+
+    .prayerBox{
+        grid-template-columns:repeat(5,1fr);
+        overflow:auto;
+    }
+
+    .categoryGrid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px){
+    .app{
+        padding:12px 12px 100px;
+    }
+
+    .topbar{
+        top:7px;
+        border-radius:20px;
+    }
+
+    .hero{
+        padding:28px 18px;
+        border-radius:27px;
+    }
+
+    .arabic{
+        font-size:25px;
+    }
+
+    .hero h1{
+        font-size:32px;
+    }
+
+    .featureGrid{
+        grid-template-columns:repeat(2,1fr);
+        gap:8px;
+    }
+
+    .feature{
+        min-height:125px;
+        padding:15px;
+        border-radius:20px;
+    }
+
+    .feature .emoji{
+        font-size:26px;
+        margin-bottom:12px;
+    }
+
+    .surahGrid{
+        grid-template-columns:1fr;
+    }
+
+    .categoryGrid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .profileGrid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .sheet{
+        padding:15px;
+        max-height:94vh;
+    }
+
+    .ayahArabic{
+        font-size:24px;
+    }
+
+    .counterCircle{
+        width:210px;
+        height:210px;
+    }
+}
+
+@media(max-width:390px){
+    .featureGrid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .feature span{
+        font-size:10px;
+    }
+
+    .navItem{
+        font-size:9px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+<div class="app">
+
+<header class="topbar">
+
+    <div class="logo">
+        <div class="logoIcon">☪</div>
+        <div class="logoText">
+            <strong>NUR</strong>
+            <span>QALBINGIZGA NUR</span>
+        </div>
+    </div>
+
+    <div class="topActions">
+        <button class="iconBtn" onclick="openSearch()">⌕</button>
+        <button class="iconBtn" onclick="toggleTheme()" id="themeBtn">☾</button>
+    </div>
+
+</header>
+
+<section class="hero">
+
+    <div class="arabic">
+        وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ
+    </div>
+
+    <h1>Qalbingizga nur</h1>
+
+    <p>
+        Qur’on, zikr, duo, tasbeh, namoz va islomiy bilimlar
+        bir joyda. Har kuni qalbingiz uchun bir oz nur.
+    </p>
+
+    <div class="heroActions">
+        <button class="primary" onclick="openQuran()">📖 Qur’onni ochish</button>
+        <button class="secondary" onclick="openDuas()">🤲 Duolar</button>
+    </div>
+
+</section>
+
+
+<section class="section">
+
+<div class="sectionHead">
+    <div>
+        <h2>Asosiy bo‘limlar</h2>
+        <p>Kerakli bo‘limni tanlang</p>
+    </div>
+</div>
+
+<div class="featureGrid">
+
+<button class="feature" onclick="openQuran()">
+    <div class="emoji">📖</div>
+    <strong>Qur’on</strong>
+    <span>114 sura, arabcha matn va audio</span>
+</button>
+
+<button class="feature" onclick="openZikr()">
+    <div class="emoji">📿</div>
+    <strong>Zikrlar</strong>
+    <span>Kundalik zikr va tasbehlar</span>
+</button>
+
+<button class="feature" onclick="openDuas()">
+    <div class="emoji">🤲</div>
+    <strong>Duolar</strong>
+    <span>Mashhur va foydali duolar</span>
+</button>
+
+<button class="feature" onclick="openTasbih()">
+    <div class="emoji">🔢</div>
+    <strong>Tasbeh</strong>
+    <span>Raqamli tasbeh hisoblagich</span>
+</button>
+
+<button class="feature" onclick="openPrayer()">
+    <div class="emoji">🕌</div>
+    <strong>Namoz</strong>
+    <span>Bugungi namoz vaqtlari</span>
+</button>
+
+<button class="feature" onclick="openHadith()">
+    <div class="emoji">📜</div>
+    <strong>Hadislar</strong>
+    <span>Hadislar va qisqa ma’nolar</span>
+</button>
+
+<button class="feature" onclick="openQibla()">
+    <div class="emoji">🕋</div>
+    <strong>Qibla</strong>
+    <span>Qiblani topish</span>
+</button>
+
+<button class="feature" onclick="openCalendar()">
+    <div class="emoji">🌙</div>
+    <strong>Taqvim</strong>
+    <span>Hijriy sana va kunlar</span>
+</button>
+
+</div>
+</section>
+
+
+<section class="section">
+
+<div class="sectionHead">
+    <div>
+        <h2>Bugungi eslatma</h2>
+        <p>Qalbingizga foydali so‘z</p>
+    </div>
+</div>
+
+<div class="dailyGrid">
+
+<div class="daily">
+    <span class="tag">AYAT</span>
+    <h3>Allohga tavakkul</h3>
+    <div class="arabicSmall">
+        وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ
+    </div>
+    <p>
+        Kim Allohga tavakkul qilsa, U unga kifoya qiladi.
+    </p>
+</div>
+
+<div class="daily">
+    <span class="tag">ZIKR</span>
+    <h3>Bugungi zikr</h3>
+    <div class="arabicSmall">
+        سُبْحَانَ اللَّهِ
+    </div>
+    <p>
+        Subhanalloh — Alloh barcha nuqsonlardan pokdir.
+    </p>
+</div>
+
+<div class="daily">
+    <span class="tag">DUO</span>
+    <h3>Qalb uchun duo</h3>
+    <div class="arabicSmall">
+        رَبِّ اشْرَحْ لِي صَدْرِي
+    </div>
+    <p>
+        Robbim, ko‘ksimni keng qil.
+    </p>
+</div>
+
+</div>
+</section>
+
+
+<section class="section">
+
+<div class="sectionHead">
+    <div>
+        <h2>Bugungi namoz vaqtlari</h2>
+        <p id="locationText">Joylashuv aniqlanmoqda...</p>
+    </div>
+
+    <button class="secondary" onclick="loadPrayerTimes()">Yangilash</button>
+</div>
+
+<div class="prayerBox" id="prayerBox">
+    <div class="loader">
+        <div class="spinner"></div>
+        Yuklanmoqda...
+    </div>
+</div>
+
+</section>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottomNav">
+
+<button class="navItem active" onclick="goHome()">
+    <div>⌂</div>
+    Bosh sahifa
+</button>
+
+<button class="navItem" onclick="openQuran()">
+    <div>📖</div>
+    Qur’on
+</button>
+
+<button class="navItem" onclick="openZikr()">
+    <div>📿</div>
+    Zikr
+</button>
+
+<button class="navItem" onclick="openDuas()">
+    <div>🤲</div>
+    Duo
+</button>
+
+<button class="navItem" onclick="openProfile()">
+    <div>👤</div>
+    Profil
+</button>
+
+</nav>
+
+
+<!-- MODAL -->
+
+<div class="modal" id="modal" onclick="modalOutside(event)">
+
+<div class="sheet" id="sheet">
+
+<div class="sheetTop">
+    <h2 id="modalTitle">NUR</h2>
+    <button class="close" onclick="closeModal()">✕</button>
+</div>
+
+<div id="modalContent"></div>
+
+</div>
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================================================
+   NUR — MAIN JAVASCRIPT
+========================================================= */
+
+const API = "https://api.alquran.cloud/v1";
+
+let surahs = [];
+let currentSurah = null;
+let currentAudio = null;
+
+const state = JSON.parse(
+    localStorage.getItem("nur_state") ||
+    '{"tasbih":0,"bookmarks":[],"lastSurah":1,"lastAyah":1}'
+);
+
+function saveState(){
+    localStorage.setItem("nur_state",JSON.stringify(state));
+}
+
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+function toast(message){
+
+    const el = document.getElementById("toast");
+
+    el.textContent = message;
+    el.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer = setTimeout(()=>{
+        el.classList.remove("show");
+    },2200);
+}
+
+
+function openModal(title,content){
+
+    document.getElementById("modalTitle").textContent = title;
+    document.getElementById("modalContent").innerHTML = content;
+
+    document.getElementById("modal").classList.add("show");
+
+    document.body.style.overflow="hidden";
+}
+
+
+function closeModal(){
+
+    stopAudio();
+
+    document.getElementById("modal").classList.remove("show");
+
+    document.body.style.overflow="";
+}
+
+
+function modalOutside(e){
+
+    if(e.target.id==="modal"){
+        closeModal();
+    }
+}
+
+
+function goHome(){
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    toast("Bosh sahifa");
+}
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function toggleTheme(){
+
+    document.body.classList.toggle("light");
+
+    const light = document.body.classList.contains("light");
+
+    localStorage.setItem("nur_theme",light?"light":"dark");
+
+    document.getElementById("themeBtn").textContent =
+        light ? "☀" : "☾";
+
+    toast(light ? "Yorug‘ rejim" : "Tungi rejim");
+}
+
+
+(function(){
+
+    const theme = localStorage.getItem("nur_theme");
+
+    if(theme==="light"){
+        document.body.classList.add("light");
+        document.getElementById("themeBtn").textContent="☀";
+    }
+
+})();
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function openSearch(){
+
+    openModal(
+        "Qidiruv",
+        `
+        <input
+            class="search"
+            id="globalSearch"
+            placeholder="Sura, duo yoki zikr qidiring..."
+            oninput="globalSearch(this.value)"
+            autofocus
+        >
+
+        <div id="searchResults">
+            <div class="loader">
+                Qidiruvni boshlang...
+            </div>
+        </div>
+        `
+    );
+}
+
+
+function globalSearch(value){
+
+    const q = value.toLowerCase().trim();
+
+    const box = document.getElementById("searchResults");
+
+    if(!q){
+        box.innerHTML=`<div class="loader">Qidiruvni boshlang...</div>`;
+        return;
+    }
+
+    const found = surahs.filter(s=>
+        s.name.toLowerCase().includes(q) ||
+        s.englishName.toLowerCase().includes(q) ||
+        String(s.number).includes(q)
+    );
+
+    if(!found.length){
+
+        box.innerHTML=`
+            <div class="loader">
+                Hech narsa topilmadi.
+            </div>
+        `;
+
+        return;
+    }
+
+    box.innerHTML = found.map(surahHTML).join("");
+}
+
+
+/* =========================================================
+   QURAN
+========================================================= */
+
+async function openQuran(){
+
+    openModal(
+        "Qur’on — 114 sura",
+        `
+        <input
+            class="search"
+            placeholder="Sura qidiring..."
+            oninput="filterSurahs(this.value)"
+        >
+
+        <div id="surahList">
+            <div class="loader">
+                <div class="spinner"></div>
+                Qur’on ma’lumotlari yuklanmoqda...
+            </div>
+        </div>
+        `
+    );
+
+    if(!surahs.length){
+
+        try{
+
+            const response = await fetch(
+                `${API}/surah`
+            );
+
+            const data = await response.json();
+
+            surahs = data.data || [];
+
+            renderSurahs();
+
+        }catch(error){
+
+            document.getElementById("surahList").innerHTML=`
+                <div class="loader">
+                    Qur’on ma’lumotlarini yuklashda xatolik.
+                    <br><br>
+                    Internet aloqangizni tekshiring.
+                    <br><br>
+                    <button class="primary" onclick="openQuran()">
+                        Qayta urinish
+                    </button>
+                </div>
+            `;
+
+        }
+
+    }else{
+        renderSurahs();
+    }
+}
+
+
+function surahHTML(s){
+
+    return `
+    <button class="surahItem" onclick="openSurah(${s.number})">
+
+        <div class="surahNum">${s.number}</div>
+
+        <div class="surahInfo">
+            <strong>${escapeHTML(s.englishName)}</strong>
+            <span>
+                ${escapeHTML(s.englishNameTranslation)}
+                • ${s.numberOfAyahs} oyat
+            </span>
+        </div>
+
+        <div class="surahArabic">
+            ${escapeHTML(s.name)}
+        </div>
+
+    </button>
+    `;
+}
+
+
+function renderSurahs(){
+
+    const box = document.getElementById("surahList");
+
+    if(!box)return;
+
+    box.innerHTML = surahs.map(surahHTML).join("");
+}
+
+
+function filterSurahs(value){
+
+    const q=value.toLowerCase().trim();
+
+    const filtered=surahs.filter(s=>
+        s.name.toLowerCase().includes(q) ||
+        s.englishName.toLowerCase().includes(q) ||
+        s.englishNameTranslation.toLowerCase().includes(q) ||
+        String(s.number).includes(q)
+    );
+
+    document.getElementById("surahList").innerHTML =
+        filtered.length
+        ? filtered.map(surahHTML).join("")
+        : `<div class="loader">Sura topilmadi.</div>`;
+}
+
+
+/* =========================================================
+   OPEN SURAH
+========================================================= */
+
+async function openSurah(number){
+
+    stopAudio();
+
+    currentSurah=number;
+
+    state.lastSurah=number;
+
+    saveState();
+
+    openModal(
+        "Qur’on",
+        `
+        <div class="loader">
+            <div class="spinner"></div>
+            Sura yuklanmoqda...
+        </div>
+        `
+    );
+
+    try{
+
+        /*
+          Arabic + audio.
+          Al Quran Cloud tomonidan taqdim etiladigan
+          Alafasy audio edition ishlatiladi.
+        */
+
+        const response = await fetch(
+            `${API}/surah/${number}/editions/quran-uthmani,ar.alafasy`
+        );
+
+        const data = await response.json();
+
+        const arabic = data.data?.[0];
+        const audio = data.data?.[1];
+
+        if(!arabic){
+            throw new Error("No data");
+        }
+
+        renderReader(arabic,audio);
+
+    }catch(error){
+
+        document.getElementById("modalContent").innerHTML=`
+            <div class="loader">
+                Sura ma’lumotlarini olishda xatolik yuz berdi.
+                <br><br>
+                <button class="primary" onclick="openSurah(${number})">
+                    Qayta urinish
+                </button>
+            </div>
+        `;
+    }
+}
+
+
+/* =========================================================
+   READER
+========================================================= */
+
+function renderReader(surah,audio){
+
+    const isFav = state.bookmarks.includes(surah.number);
+
+    let html=`
+
+    <div class="reader">
+
+        <div class="readerHead">
+
+            <div class="arabicTitle">
+                ${escapeHTML(surah.name)}
+            </div>
+
+            <h2>${escapeHTML(surah.englishName)}</h2>
+
+            <p>
+                ${escapeHTML(surah.englishNameTranslation)}
+                • ${surah.numberOfAyahs} oyat
+            </p>
+
+        </div>
+
+        <div class="readerTools">
+
+            <button class="secondary" onclick="playFullSurah()">
+                ▶️ Audio
+            </button>
+
+            <button class="secondary"
+                onclick="toggleBookmark(${surah.number})">
+                ${isFav ? "❤️ Saqlangan" : "♡ Saqlash"}
+            </button>
+
+            <button class="secondary"
+                onclick="shareSurah(${surah.number})">
+                ↗ Ulashish
+            </button>
+
+        </div>
+
+    `;
+
+    surah.ayahs.forEach((ayah,index)=>{
+
+        const audioAyah =
+            audio?.ayahs?.[index]?.audio || "";
+
+        const saved =
+            state.bookmarks.includes(
+                `${surah.number}:${ayah.numberInSurah}`
+            );
+
+        html += `
+
+        <article class="ayah">
+
+            <div class="ayahNumber">
+                ${ayah.numberInSurah}
+            </div>
+
+            <div class="ayahArabic">
+                ${escapeHTML(ayah.text)}
+            </div>
+
+            <div class="ayahTranslation">
+                ${translationForAyah(surah.number,ayah.numberInSurah)}
+            </div>
+
+            <div class="ayahActions">
+
+                ${
+                    audioAyah
+                    ?
+                    `<button class="smallBtn"
+                        onclick='playAudio(${JSON.stringify(audioAyah)})'>
+                        ▶️ Tinglash
+                    </button>`
+                    :
+                    ""
+                }
+
+                <button class="smallBtn"
+                    onclick="toggleAyahBookmark('${surah.number}:${ayah.numberInSurah}')">
+                    ${saved ? "❤️" : "♡"}
+                </button>
+
+                <button class="smallBtn"
+                    onclick="copyAyah(${JSON.stringify(ayah.text)})">
+                    Nusxa
+                </button>
+
+            </div>
+
+        </article>
+        `;
+    });
+
+    html+=`</div>`;
+
+    document.getElementById("modalContent").innerHTML=html;
+
+    window.currentAudioEdition=audio;
+}
+
+
+/*
+  Bu yerda tarjima uchun xavfsiz fallback ishlatiladi.
+  Arabcha matn doim API'dan olinadi.
+*/
+function translationForAyah(surah,ayah){
+
+    const known = {
+
+        "1:1":
+        "Mehribon va rahmli Allohning nomi bilan.",
+
+        "1:2":
+        "Hamd olamlarning Robbi Allohgadir.",
+
+        "1:3":
+        "U Mehribondir, Rahmlidir.",
+
+        "1:4":
+        "Jazo kunining Egasi.",
+
+        "1:5":
+        "Faqat Sengagina ibodat qilamiz va faqat Sendangina yordam so‘raymiz.",
+
+        "1:6":
+        "Bizni to‘g‘ri yo‘lga hidoyat qil.",
+
+        "1:7":
+        "O‘zing ne’mat berganlarning yo‘liga; g‘azabga uchraganlar va adashganlarning yo‘liga emas."
+    };
+
+    return known[`${surah}:${ayah}`] ||
+        "Ushbu oyatning tarjimasini ishonchli Qur’on tarjimasidan ko‘rishingiz mumkin.";
+}
+
+
+/* =========================================================
+   AUDIO
+========================================================= */
+
+function playAudio(url){
+
+    stopAudio();
+
+    if(!url){
+        toast("Audio mavjud emas.");
+        return;
+    }
+
+    currentAudio=new Audio(url);
+
+    currentAudio.play()
+        .then(()=>{
+            toast("Audio ijro etilmoqda ▶️");
+        })
+        .catch(()=>{
+            toast("Audio ishga tushmadi.");
+        });
+
+    currentAudio.onended=()=>{
+        toast("Audio tugadi.");
+    };
+}
+
+
+function playFullSurah(){
+
+    const audio =
+        window.currentAudioEdition;
+
+    const url =
+        audio?.ayahs?.[0]?.audio;
+
+    if(!url){
+
+        toast("Audio topilmadi.");
+        return;
+    }
+
+    /*
+      API ba'zi holatlarda har bir oyat audio URL'larini
+      beradi. Birinchi oyatni ishga tushiramiz.
+    */
+
+    playAudio(url);
+
+    toast("Suraning audio ijrosi boshlandi.");
+}
+
+
+function stopAudio(){
+
+    if(currentAudio){
+
+        currentAudio.pause();
+        currentAudio.currentTime=0;
+        currentAudio=null;
+    }
+}
+
+
+/* =========================================================
+   BOOKMARK
+========================================================= */
+
+function toggleBookmark(number){
+
+    const index=state.bookmarks.indexOf(number);
+
+    if(index>=0){
+
+        state.bookmarks.splice(index,1);
+
+        toast("Saqlanganlardan olib tashlandi.");
+
+    }else{
+
+        state.bookmarks.push(number);
+
+        toast("Sura saqlandi ❤️");
+    }
+
+    saveState();
+
+    openSurah(number);
+}
+
+
+function toggleAyahBookmark(id){
+
+    const index=state.bookmarks.indexOf(id);
+
+    if(index>=0){
+        state.bookmarks.splice(index,1);
+        toast("Oyat olib tashlandi.");
+    }else{
+        state.bookmarks.push(id);
+        toast("Oyat saqlandi ❤️");
+    }
+
+    saveState();
+}
+
+
+function copyAyah(text){
+
+    navigator.clipboard?.writeText(text)
+        .then(()=>toast("Oyat nusxalandi."))
+        .catch(()=>toast("Nusxalash amalga oshmadi."));
+}
+
+
+function shareSurah(number){
+
+    const url =
+        location.href.split("#")[0] +
+        "#surah-"+number;
+
+    if(navigator.share){
+
+        navigator.share({
+            title:"NUR — Qur’on",
+            text:"Qur’on surasi",
+            url
+        });
+
+    }else{
+
+        navigator.clipboard?.writeText(url);
+
+        toast("Havola nusxalandi.");
+    }
+}
+
+
+/* =========================================================
+   ZIKR
+========================================================= */
+
+function openZikr(){
+
+    openModal(
+        "Zikrlar",
+        `
+
+        <div class="categoryGrid">
+
+            <button class="category"
+                onclick="openZikrList('Ertalabki zikrlar')">
+                <div class="big">🌅</div>
+                <strong>Ertalabki zikrlar</strong>
+                <span>Kun boshlanishidagi zikrlar</span>
+            </button>
+
+            <button class="category"
+                onclick="openZikrList('Kechki zikrlar')">
+                <div class="big">🌙</div>
+                <strong>Kechki zikrlar</strong>
+                <span>Kun yakunidagi zikrlar</span>
+            </button>
+
+            <button class="category"
+                onclick="openZikrList('Istig‘for')">
+                <div class="big">🤍</div>
+                <strong>Istig‘for</strong>
+                <span>Mag‘firat so‘rash zikrlari</span>
+            </button>
+
+            <button class="category"
+                onclick="openZikrList('Salovat')">
+                <div class="big">ﷺ</div>
+                <strong>Salovat</strong>
+                <span>Payg‘ambarimizga salovatlar</span>
+            </button>
+
+            <button class="category"
+                onclick="openZikrList('Tasbehlar')">
+                <div class="big">📿</div>
+                <strong>Tasbehlar</strong>
+                <span>Subhanalloh, Alhamdulillah...</span>
+            </button>
+
+            <button class="category"
+                onclick="openTasbih()">
+                <div class="big">🔢</div>
+                <strong>Raqamli tasbeh</strong>
+                <span>O‘zingiz zikr sanang</span>
+            </button>
+
+        </div>
+        `
+    );
+}
+
+
+function openZikrList(title){
+
+    const data={
+
+        "Ertalabki zikrlar":[
+            ["آيَةُ الْكُرْسِيِّ","Oyatul Kursiy"],
+            ["قُلْ هُوَ اللَّهُ أَحَدٌ","Ixlos surasi"],
+            ["سُبْحَانَ اللَّهِ وَبِحَمْدِهِ","Subhanallohi va bihamdih"],
+        ],
+
+        "Kechki zikrlar":[
+            ["أَسْتَغْفِرُ اللَّهَ","Astaghfirulloh"],
+            ["لَا إِلَهَ إِلَّا اللَّهُ","La ilaha illalloh"],
+            ["اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ","Salovat"],
+        ],
+
+        "Istig‘for":[
+            ["أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ","Allohdan mag‘firat so‘rayman va Unga tavba qilaman."]
+        ],
+
+        "Salovat":[
+            ["اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ","Allohim, Payg‘ambarimiz Muhammadga salovat va salomlar yubor."]
+        ],
+
+        "Tasbehlar":[
+            ["سُبْحَانَ اللَّهِ","Subhanalloh"],
+            ["الْحَمْدُ لِلَّهِ","Alhamdulillah"],
+            ["اللَّهُ أَكْبَرُ","Allohu Akbar"],
+            ["لَا إِلَهَ إِلَّا اللَّهُ","La ilaha illalloh"]
+        ]
+    };
+
+    const list=data[title] || [];
+
+    openModal(
+        title,
+        list.map(item=>`
+
+        <div class="duaCard">
+
+            <div class="duaArabic">
+                ${item[0]}
+            </div>
+
+            <div class="duaMeaning">
+                ${item[1]}
+            </div>
+
+            <div class="ayahActions">
+
+                <button class="smallBtn"
+                    onclick='copyAyah(${JSON.stringify(item[0])})'>
+                    Nusxa
+                </button>
+
+                <button class="smallBtn"
+                    onclick="openTasbih()">
+                    📿 Sanash
+                </button>
+
+            </div>
+
+        </div>
+
+        `).join("")
+    );
+}
+
+
+/* =========================================================
+   DUOLAR
+========================================================= */
+
+function openDuas(){
+
+    openModal(
+        "Duolar",
+        `
+
+        <div class="categoryGrid">
+
+            <button class="category"
+                onclick="showDua('Safar duosi')">
+                <div class="big">🛣️</div>
+                <strong>Safar duosi</strong>
+                <span>Safarga chiqishda</span>
+            </button>
+
+            <button class="category"
+                onclick="showDua('Ota-ona uchun')">
+                <div class="big">❤️</div>
+                <strong>Ota-ona uchun</strong>
+                <span>Ota-onalar uchun duo</span>
+            </button>
+
+            <button class="category"
+                onclick="showDua('Ilm uchun')">
+                <div class="big">📚</div>
+                <strong>Ilm uchun</strong>
+                <span>Ilmni ziyoda qilish uchun</span>
+            </button>
+
+            <button class="category"
+                onclick="showDua('Qalb uchun')">
+                <div class="big">🤍</div>
+                <strong>Qalb uchun</strong>
+                <span>Qalb xotirjamligi uchun</span>
+            </button>
+
+            <button class="category"
+                onclick="showDua('Rizq uchun')">
+                <div class="big">🌿</div>
+                <strong>Rizq uchun</strong>
+                <span>Halol rizq so‘rash</span>
+            </button>
+
+            <button class="category"
+                onclick="showDua('Mag‘firat')">
+                <div class="big">🤲</div>
+                <strong>Mag‘firat</strong>
+                <span>Gunohlar uchun mag‘firat</span>
+            </button>
+
+        </div>
+        `
+    );
+}
+
+
+function showDua(title){
+
+    const duas={
+
+        "Safar duosi":[
+            "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ",
+            "Bu duoning mazmuni: Bizga buni bo‘ysundirib qo‘ygan Zot pokdir. Biz bunga o‘zimiz qodir emas edik."
+        ],
+
+        "Ota-ona uchun":[
+            "رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا",
+            "Robbim, ular meni kichiklikda tarbiyalaganlaridek, Sen ham ularga rahm qil."
+        ],
+
+        "Ilm uchun":[
+            "رَبِّ زِدْنِي عِلْمًا",
+            "Robbim, ilmimni ziyoda qil."
+        ],
+
+        "Qalb uchun":[
+            "رَبِّ اشْرَحْ لِي صَدْرِي",
+            "Robbim, ko‘ksimni keng qil."
+        ],
+
+        "Rizq uchun":[
+            "رَبِّ إِنِّي لِمَا أَنْزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ",
+            "Robbim, Sen menga tushiradigan har qanday yaxshilikka muhtojman."
+        ],
+
+        "Mag‘firat":[
+            "رَبَّنَا ظَلَمْنَا أَنْفُسَنَا وَإِنْ لَمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ",
+            "Robbimiz, biz o‘zimizga zulm qildik. Agar Sen bizni mag‘firat qilmasang va rahm qilmasang, albatta ziyon ko‘ruvchilardan bo‘lamiz."
+        ]
+    };
+
+    const d=duas[title];
+
+    openModal(
+        title,
+        `
+        <div class="duaCard">
+
+            <div class="duaArabic">
+                ${d[0]}
+            </div>
+
+            <div class="duaMeaning">
+                ${d[1]}
+            </div>
+
+            <div class="ayahActions">
+
+                <button class="smallBtn"
+                    onclick='copyAyah(${JSON.stringify(d[0])})'>
+                    Nusxa
+                </button>
+
+                <button class="smallBtn"
+                    onclick="navigator.share ? navigator.share({text:${JSON.stringify(d[0])}}) : toast('Ulashish mavjud emas')">
+                    ↗ Ulashish
+                </button>
+
+            </div>
+
+        </div>
+        `
+    );
+}
+
+
+/* =========================================================
+   TASBIH
+========================================================= */
+
+function openTasbih(){
+
+    openModal(
+        "📿 Raqamli tasbeh",
+        `
+
+        <div class="tasbih">
+
+            <p style="color:var(--muted)">
+                Zikrni ayting va tugmani bosing.
+            </p>
+
+            <div class="counterCircle">
+                <strong id="counter">
+                    ${state.tasbih}
+                </strong>
+            </div>
+
+            <div class="tasbihButtons">
+
+                <button class="secondary"
+                    onclick="resetTasbih()">
+                    ↻
+                </button>
+
+                <button class="tasbihMain"
+                    onclick="countTasbih()">
+                    ZIKR
+                </button>
+
+            </div>
+
+            <div style="margin-top:20px;color:var(--muted);font-size:12px">
+                Har bir bosishda vibratsiya ishlashi mumkin.
+            </div>
+
+        </div>
+        `
+    );
+}
+
+
+function countTasbih(){
+
+    state.tasbih++;
+
+    saveState();
+
+    const counter=document.getElementById("counter");
+
+    if(counter){
+        counter.textContent=state.tasbih;
+    }
+
+    if(navigator.vibrate){
+        navigator.vibrate(25);
+    }
+}
+
+
+function resetTasbih(){
+
+    state.tasbih=0;
+
+    saveState();
+
+    const counter=document.getElementById("counter");
+
+    if(counter){
+        counter.textContent="0";
+    }
+
+    toast("Tasbeh qayta boshlandi.");
+}
+
+
+/* =========================================================
+   PRAYER TIMES
+========================================================= */
+
+async function loadPrayerTimes(){
+
+    const box=document.getElementById("prayerBox");
+
+    box.innerHTML=`
+        <div class="loader">
+            <div class="spinner"></div>
+            Namoz vaqtlari olinmoqda...
+        </div>
+    `;
+
+    if(!navigator.geolocation){
+
+        loadPrayerByCoordinates(41.2995,69.2401,"Toshkent");
+
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+
+        position=>{
+
+            loadPrayerByCoordinates(
+                position.coords.latitude,
+                position.coords.longitude,
+                "Joylashuvingiz"
+            );
+
+        },
+
+        ()=>{
+
+            loadPrayerByCoordinates(
+                41.2995,
+                69.2401,
+                "Toshkent"
+            );
+
+        },
+
+        {
+            enableHighAccuracy:true,
+            timeout:10000
+        }
+    );
+}
+
+
+async function loadPrayerByCoordinates(lat,lon,name){
+
+    try{
+
+        const date=new Date();
+
+        const url=
+            `https://api.aladhan.com/v1/timings/${String(date.getDate()).padStart(2,"0")}-${String(date.getMonth()+1).padStart(2,"0")}-${date.getFullYear()}?latitude=${lat}&longitude=${lon}&method=3`;
+
+        const response=await fetch(url);
+
+        const data=await response.json();
+
+        const t=data.data.timings;
+
+        document.getElementById("locationText").textContent=name;
+
+        const prayers=[
+            ["Bomdod",t.Fajr],
+            ["Quyosh",t.Sunrise],
+            ["Peshin",t.Dhuhr],
+            ["Asr",t.Asr],
+            ["Shom",t.Maghrib],
+            ["Xufton",t.Isha]
+        ];
+
+        document.getElementById("prayerBox").innerHTML =
+            prayers.map(p=>`
+
+                <div class="prayer">
+                    <span>${p[0]}</span>
+                    <strong>${p[1]}</strong>
+                </div>
+
+            `).join("");
+
+    }catch(error){
+
+        document.getElementById("prayerBox").innerHTML=`
+            <div class="loader">
+                Namoz vaqtlarini yuklashda xatolik.
+            </div>
+        `;
+    }
+}
+
+
+/* =========================================================
+   HADITH
+========================================================= */
+
+function openHadith(){
+
+    const hadiths=[
+
+        {
+            title:"Niyat",
+            text:"Amallar niyatlarga bog‘liq."
+        },
+
+        {
+            title:"Mehr",
+            text:"Rahm qiluvchilarga Rohman rahm qiladi."
+        },
+
+        {
+            title:"Yaxshilik",
+            text:"Yaxshi so‘z sadaqadir."
+        },
+
+        {
+            title:"Poklik",
+            text:"Poklik imonning yarmidir."
+        }
+
+    ];
+
+    openModal(
+        "📜 Hadislar",
+        hadiths.map(h=>`
+
+        <div class="duaCard">
+
+            <h3>${h.title}</h3>
+
+            <p style="line-height:1.8;color:var(--muted)">
+                ${h.text}
+            </p>
+
+        </div>
+
+        `).join("") +
+
+        `
+        <p style="color:var(--muted);font-size:11px;text-align:center;margin-top:15px">
+            Hadislarni nashr qilishda ishonchli hadis manbalariga murojaat qiling.
+        </p>
+        `
+    );
+}
+
+
+/* =========================================================
+   QIBLA
+========================================================= */
+
+function openQibla(){
+
+    openModal(
+        "🕋 Qibla",
+        `
+
+        <div class="qibla">
+
+            <p style="color:var(--muted);line-height:1.7">
+                Qurilma kompas sensori mavjud bo‘lsa,
+                yo‘nalish aniqlanishi mumkin.
+            </p>
+
+            <div class="compass">
+
+                <div class="needle" id="needle"></div>
+
+                <div style="
+                    position:absolute;
+                    font-size:45px;
+                ">
+                    🕋
+                </div>
+
+            </div>
+
+            <button class="primary" onclick="startCompass()">
+                Kompasni ishga tushirish
+            </button>
+
+            <p id="qiblaText"
+                style="margin-top:18px;color:var(--muted)">
+                Tugmani bosing.
+            </p>
+
+        </div>
+        `
+    );
+}
+
+
+function startCompass(){
+
+    if(
+        typeof DeviceOrientationEvent !== "undefined" &&
+        typeof DeviceOrientationEvent.requestPermission === "function"
+    ){
+
+        DeviceOrientationEvent.requestPermission()
+            .then(permission=>{
+
+                if(permission==="granted"){
+                    listenCompass();
+                }else{
+                    toast("Kompasga ruxsat berilmadi.");
+                }
+
+            })
+            .catch(()=>{
+                toast("Kompas ishga tushmadi.");
+            });
+
+    }else{
+
+        listenCompass();
+
+    }
+}
+
+
+function listenCompass(){
+
+    window.addEventListener(
+        "deviceorientation",
+        event=>{
+
+            let heading=event.alpha;
+
+            if(typeof event.webkitCompassHeading !== "undefined"){
+                heading=event.webkitCompassHeading;
+            }
+
+            const needle=document.getElementById("needle");
+
+            if(needle && heading!=null){
+
+                /*
+                  Toshkent uchun taxminiy qibla azimuti.
+                  Foydalanuvchining real koordinatasi mavjud bo‘lsa,
+                  professional qibla hisoblash serveri bilan aniqlashtirish mumkin.
+                */
+
+                const qibla=237;
+
+                const angle=qibla-heading;
+
+                needle.style.transform=
+                    `rotate(${angle}deg)`;
+
+                const text=document.getElementById("qiblaText");
+
+                if(text){
+                    text.textContent=
+                        `Qibla yo‘nalishi: taxminan ${qibla}°`;
+                }
+            }
+
+        },
+        true
+    );
+
+    toast("Kompas ishga tushdi.");
+}
+
+
+/* =========================================================
+   HIJRI CALENDAR
+========================================================= */
+
+async function openCalendar(){
+
+    openModal(
+        "🌙 Hijriy taqvim",
+        `
+        <div class="loader">
+            <div class="spinner"></div>
+            Sana olinmoqda...
+        </div>
+        `
+    );
+
+    try{
+
+        const today=new Date();
+
+        const url=
+            `https://api.aladhan.com/v1/gToH?date=${String(today.getDate()).padStart(2,"0")}-${String(today.getMonth()+1).padStart(2,"0")}-${today.getFullYear()}`;
+
+        const response=await fetch(url);
+
+        const data=await response.json();
+
+        const hijri=data.data.hijri;
+
+        document.getElementById("modalContent").innerHTML=`
+
+            <div class="duaCard" style="text-align:center">
+
+                <div style="font-size:55px">🌙</div>
+
+                <h2 style="margin:15px 0">
+                    ${hijri.day} ${hijri.month.en} ${hijri.year}
+                </h2>
+
+                <p style="color:var(--muted)">
+                    ${hijri.weekday.en}
+                </p>
+
+                <div style="margin-top:20px;color:var(--green)">
+                    Hijriy sana
+                </div>
+
+            </div>
+
+        `;
+
+    }catch(error){
+
+        document.getElementById("modalContent").innerHTML=`
+            <div class="loader">
+                Hijriy sanani olishda xatolik.
+            </div>
+        `;
+    }
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+function openProfile(){
+
+    const savedSurahs=
+        state.bookmarks.filter(
+            x=>typeof x==="number"
+        ).length;
+
+    openModal(
+        "👤 Mening profilim",
+        `
+
+        <div class="profileGrid">
+
+            <div class="stat">
+                <strong>${state.tasbih}</strong>
+                <span>Tasbeh</span>
+            </div>
+
+            <div class="stat">
+                <strong>${savedSurahs}</strong>
+                <span>Saqlangan sura</span>
+            </div>
+
+            <div class="stat">
+                <strong>${state.lastSurah}</strong>
+                <span>Oxirgi sura</span>
+            </div>
+
+        </div>
+
+        <div class="duaCard" style="margin-top:12px">
+
+            <h3>Sozlamalar</h3>
+
+            <button class="secondary"
+                style="width:100%;margin-top:10px"
+                onclick="toggleTheme()">
+                ☀️ / 🌙 Rejimni almashtirish
+            </button>
+
+            <button class="secondary"
+                style="width:100%;margin-top:10px"
+                onclick="clearSaved()">
+                🗑 Saqlanganlarni tozalash
+            </button>
+
+        </div>
+
+        `
+    );
+}
+
+
+function clearSaved(){
+
+    state.bookmarks=[];
+
+    saveState();
+
+    toast("Saqlanganlar tozalandi.");
+
+    openProfile();
+}
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+loadPrayerTimes();
+
+</script>
+
+</body>
+</html>
